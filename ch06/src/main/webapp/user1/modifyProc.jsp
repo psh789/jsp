@@ -5,7 +5,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 
-	// 데이터 수신
+	// 데이터 수정 처리
 	String uid = request.getParameter("uid");
 	String name = request.getParameter("name");
 	String birth = request.getParameter("birth");
@@ -23,15 +23,14 @@
 		
 		// 1단계 - 데이터베이스 접속
 		Connection conn = DriverManager.getConnection(host, user, pass);
-		
 		// 2단계 - SQL실행 객체 생성
-		String sql = "insert into `user1` values (?,?,?,?,?)";
+		String sql = "update `user1` set `name`=?, `birth`=?, `hp`=?, `age`=? where `uid`=?";
 		PreparedStatement psmt = conn.prepareStatement(sql);
-		psmt.setString(1, uid);
-		psmt.setString(2, name);
-		psmt.setString(3, birth);
-		psmt.setString(4, hp);
-		psmt.setString(5, age);
+		psmt.setString(1, name);
+		psmt.setString(2, birth);
+		psmt.setString(3, hp);
+		psmt.setString(4, age);
+		psmt.setString(5, uid);
 		
 		// 3단계 - SQL실행
 		psmt.executeUpdate();
